@@ -1,10 +1,12 @@
 /*❗❗ MAKE SURE TO RETURN ALL OF THE ANSWERS ON THESE TASKS, IF YOU DON'T, THE AUTOGRADER WILL NOT WORK ❗❗*/
 
+const { restart } = require("nodemon");
+
 /*When doing these tasks, we recommend using console.log to test the output of your code to make sure it works correctly.*/
 
 ///////////////Menu Items (MVP)///////////////////
-const latte = {name: "Cafe Latte", price: 4, category: "Drinks"};
-const breakfastBurrito = {name: "Breakfast Burrito", price: 16, category:"Breakfast"};
+const latte = { name: "Cafe Latte", price: 4, category: "Drinks" };
+const breakfastBurrito = { name: "Breakfast Burrito", price: 16, category: "Breakfast" };
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 1a: Make a function that builds objects🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Add to the function createMenuItems below so it will create objects following the same format found above for latte and breakfastBurrito (name, price, category).  
@@ -16,10 +18,10 @@ The function should:
 */
 
 
-function createMenuItem(/*Your code here*/){
-  /*Your code here*/
+function createMenuItem(name, price, category) {
+  return { name, price, category };
 }
-
+console.log(createMenuItem('tacos', 8, 'Lunch'));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 1b (not auto-tested): 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -32,6 +34,9 @@ Test your createMenuItems function by doing the following:
   For example: createMenuItem("pizza",5,"lunch") would return this as the object: {name:"Pizza",price:5,category:"lunch"}
 */
 
+console.log(createMenuItem('pad thai', 3, 'Lunch'));
+console.log(createMenuItem('salmon fillet', 5, 'Dinner'));
+console.log(createMenuItem('apple pie', 10, 'Dessert'));
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -48,24 +53,31 @@ Using the burger object below do the following:
 
 
 const burger = {
-  name: "Burger", 
-  price: 18, 
-  category: "Lunch", 
-  
+  name: "Burger",
+  price: 18,
+  category: "Lunch",
+
+  discount: function (person) {
+    if (person === 'teacher' || person === 'student') {
+      return this.price - (this.price * 0.25);
+    } else if (person === 'public') {
+      return this.price - (this.price * 0.10);
+    }
+  }
 }
 
-
+console.log(burger.discount('teacher'));
 
 ///////////////Reviews (MVP)///////////////////
 const reviews = [
-    {name: "Daniela", rating: 5, feedback:"Beautiful atmosphere and wonderful vegan options!"},
-    {name: "Jack", rating: 3, feedback:"A little too hipster for my taste, but the burger was decent, if overpriced"},
-    {name: "Miranda", rating: 4, feedback:"fun trivia and cool vibes"},
-    {name: "Wen", rating: 4.5, feedback:"I don't leave my house often, but when I do, it's for this place. Highly reccomend."},
-    {name: "Brett", rating: 3, feedback: "great selection of snacks and a nice cafe area to get work done during the day."},
-    {name: "Julius", rating: 2, feedback: "I was largely unimpressed by this venue. Nothing special on the menu and too expensive. The atmosphere is polarizing, and not for me, but I think some would like it." },
-    {name: "Lauren", rating: 4, feedback: "Absolutely love that they have karaoke Fridays! Food and drink selection is okay."},
-    {name: "Reyna", rating: 3.5, feedback: ""},
+  { name: "Daniela", rating: 5, feedback: "Beautiful atmosphere and wonderful vegan options!" },
+  { name: "Jack", rating: 3, feedback: "A little too hipster for my taste, but the burger was decent, if overpriced" },
+  { name: "Miranda", rating: 4, feedback: "fun trivia and cool vibes" },
+  { name: "Wen", rating: 4.5, feedback: "I don't leave my house often, but when I do, it's for this place. Highly reccomend." },
+  { name: "Brett", rating: 3, feedback: "great selection of snacks and a nice cafe area to get work done during the day." },
+  { name: "Julius", rating: 2, feedback: "I was largely unimpressed by this venue. Nothing special on the menu and too expensive. The atmosphere is polarizing, and not for me, but I think some would like it." },
+  { name: "Lauren", rating: 4, feedback: "Absolutely love that they have karaoke Fridays! Food and drink selection is okay." },
+  { name: "Reyna", rating: 3.5, feedback: "" },
 ]
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 3 (not auto-tested): 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
@@ -73,7 +85,7 @@ Using the reviews array above:
   1. log only Julius' feedback to the console - no function needed 
 */
 
-
+console.log(reviews[5].feedback);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4 (not auto-tested): 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Reyna's feedback is missing! Use what you know to do the following: (no function needed) 
@@ -81,11 +93,13 @@ Reyna's feedback is missing! Use what you know to do the following: (no function
   2. log the reviews array to the console to check your work
 */
 
+reviews[7].feedback = "this place is chill with really cool people, great for getting work done on weekdays";
 
+console.log(reviews);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 5: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
 Write a function that creates an object with name, rating, feedback, add the new review to the end of an array and returns the resulting array. 
-
+ 
 Use the addReview function below to do the following:
   1. Receive an array in the FIRST parameter (invoke with the reviews array above)
   2. Receive the following parameters: name, rating, and feedback; use them in the SECOND, THIRD, and FOURTH parameters (respectively)
@@ -95,10 +109,15 @@ Use the addReview function below to do the following:
 */
 
 
-function addReview(/*Your Code Here */){
-  /*Your Code Here */
-}
+function addReview(listOfReviews, name, rating, feedback) {
+  listOfReviews.push({
+    name, rating, feedback
+  });
+  return listOfReviews;
+};
 
+
+console.log(addReview([null, 4], 'Kris', 1, 'Bad pizza'))
 
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 6: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀
@@ -112,11 +131,13 @@ Use the getReviewByIndex function below to do the following:
 */
 
 
-function getReviewByIndex(/*Your code here*/) {
-  /*Your code here*/
+function getReviewByIndex(array, number) {
+  return `${array[number].name} gave the restaurant a ${array[number].rating} star review, and their feedback was: ${array[number].feedback}`;
 }
 
-  
+console.log(getReviewByIndex(reviews, 4));
+
+
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 7: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Write a function to get information about the most recent (last) review called `getLastReview`
@@ -131,9 +152,10 @@ Use the getLastReview function below to do the following:
 */
 
 
-function getLastReview(/*Your code here*/) {
-  /*Your code here*/
-} 
+function getLastReview(array) {
+  return `${array[array.length - 1].name} gave the restaurant a ${array[array.length - 1].rating} star review, and their feedback was: ${array[array.length - 1].feedback}`;
+}
+console.log(getLastReview(reviews));
 
 
 
@@ -153,11 +175,11 @@ Use the getReviewsByRating function below to do the following:
   ]
 */
 
- function getReviewByRating(/* code here */) {
-    /* code here */
-  }
+function getReviewByRating(/* code here */) {
+  /* code here */
+}
 
-  
+
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 2: 💪💪💪💪💪💪💪💪💪💪   
 Use the getLongReviews function below to do the following:
   1. Receive the array that holds all the reviews
@@ -172,9 +194,9 @@ Use the getLongReviews function below to do the following:
 */
 
 function getLongReviews(/* code here */) {
-    /* code here */
-  }
-  
+  /* code here */
+}
+
 
 /* 💪💪💪💪💪💪💪💪💪💪 STRETCH 3: 💪💪💪💪💪💪💪💪💪💪 
 This stretch goal does not use the reviews data!  You create your own object in this stretch goal.
@@ -195,13 +217,13 @@ Use the carMaker function below to do the following:
 
 
 function carMaker(/* code here */) {
-    /* code here */
-    
+  /* code here */
+
 }
 
 
 /* 🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑 */
-function foo(){
+function foo() {
   console.log('its working');
   return 'bar';
 }
